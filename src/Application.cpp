@@ -1,26 +1,56 @@
 #include "Application.hpp"
 #include <SDL2/SDL.h>
+#include "Wanderer.hpp"
 
-int Application::run() {
+
+Application::Application(AppMode mode) :
+    config(Config(vec2(M_WIDTH, M_HEIGHT))){
+
 	if (SDL_Init(SDL_INIT_VIDEO)) {
 		fprintf(stderr, "Failed to init SDL\n");
-		return 1;
+		return;
 	}
-	this->win = SDL_CreateWindow(WINDOW_TITLE, 100, 100, this->window_width, this->window_height, 0);
+	this->win = SDL_CreateWindow(WINDOW_TITLE, 100, 100, config.map_dim.x, config.map_dim.y, 0);
 	if (!this->win) {
 		fprintf(stderr, "Failed to init Window\n");
-		return 1;
+		return;
 	}
 	this->ren = SDL_CreateRenderer(this->win, 0, 0);
 	if (!this->ren) {
 		fprintf(stderr, "Failed to init ren\n");
-		return 1;
+		return;
 	}
+	switch (mode) {
+	case AppTest:
+		test_init(); break;
+	case AppRandom:
+		fprintf(stderr, "AppRandom is not ready"); exit(1);
+	case AppCustom:
+		fprintf(stderr, "AppCustom is not ready"); exit(1);
 
+	}
+	
+}
+
+void Application::test_init() {
+	for (int i = 0; i < 10; i++) {
+		this->entities.push_back(std::make_unique<Wanderer>(config, config.random_pos()));
+	}
+}
+
+const int TARGET_FPS = 60;
+const int FRAME_DELAY_MS = 1000 / TARGET_FPS;
+
+int Application::run() {
 	this->running = true;
 	while (this->is_running()) {
+		Uint32 frame_start = SDL_GetTicks();
+		
 		this->process();
 		this->render();
+		
+		Uint32 frame_time = SDL_GetTicks() - frame_start;
+		if (frame_time < FRAME_DELAY_MS) SDL_Delay(FRAME_DELAY_MS - frame_time); 
 	}
 	
 	return 0;
@@ -45,13 +75,13 @@ void Application::process() {
 		default:;
 		}
 	}
-	for (Entity* e: this->entities) e->process();
+	for (auto& e: entities) e->process();
 }
 
 void Application::render() {
 	SDL_SetRenderDrawColor(this->ren, BG_COLOR);
 	SDL_RenderClear(this->ren);
-	for (Entity* e: this->entities) e->render(this->ren);
+	for (auto& e: entities) e->render(this->ren);
 	SDL_RenderPresent(this->ren);
 }
 

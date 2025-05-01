@@ -1,13 +1,47 @@
 #include "Movable.hpp"
 
-Movable::Movable(vec2f pos, vec2f size, SDL_Color color) :
-	Entity(pos, size, color), target(pos) {}
+Movable::Movable(Config& config, vec2f pos, vec2f size, SDL_Color color) :
+	Entity(config, pos, size, color) {}
 
-Movable::Movable(vec2f pos, vec2f size, SDL_Renderer* ren, std::string sprite_path) :
-	Entity(pos, size, ren, sprite_path), target(pos) {}
+Movable::Movable(Config& config, vec2f pos, vec2f size, SDL_Renderer* ren, std::string sprite_path) :
+	Entity(config, pos, size, ren, sprite_path) {}
 
 void Movable::process() {
-	this->pos = pos.move(this->target, this->speed);
-	
+	vec2f new_pos;
+	switch (movement.tag) {
+	case MovementByTarget:
+		new_pos = pos.move_towards(movement.data.target, speed); break;
+	case MovementByDir:
+		new_pos = pos.moved_at_angle(movement.data.dir, speed); break;
+	case MovementStatic:
+		new_pos = pos; break;
+	}
+	if (config.is_valid_pos(new_pos))
+		this->pos = new_pos;
 }
 
+
+void Movable::go_to_by_dir(int dir) {
+	movement.data.dir = dir;
+	movement.tag = MovementByDir;
+}
+
+
+void Movable::go_to_by_target(vec2f target) {
+	movement.data.target = target;
+	movement.tag = MovementByTarget;
+}
+
+
+bool Movable::is_mobile() {
+	switch (movement.tag) {
+	case MovementByTarget:
+		return pos != movement.data.target;
+	case MovementStatic:
+		return false;
+	case MovementByDir:
+		return true;
+	}
+	fprintf(stderr, "Invalid move tag\n");
+	exit(1);
+}

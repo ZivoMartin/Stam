@@ -3,12 +3,12 @@
 #include <SDL2/SDL_image.h>
 #include <string>
 
-Entity::Entity(vec2f pos, vec2f size, SDL_Color color)
-    : color(color), sprite(nullptr), pos(pos), size(size) {}
+Entity::Entity(Config& config, vec2f pos, vec2f size, SDL_Color color)
+    : color(color), sprite(nullptr), pos(pos), size(size) , config(config) {}
 
 
-Entity::Entity(vec2f pos, vec2f size, SDL_Renderer* ren, std::string sprite_path)
-    : pos(pos), size(size) {
+Entity::Entity(Config& config, vec2f pos, vec2f size, SDL_Renderer* ren, std::string sprite_path)
+    : pos(pos), size(size), config(config) {
 	SDL_Surface* surface = IMG_Load(sprite_path.c_str());
     if (!surface) {
 		SDL_Log("IMG_Load failed: %s", IMG_GetError());

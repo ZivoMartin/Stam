@@ -3,9 +3,24 @@
 #include <SDL2/SDL.h>
 #include "vec2.hpp"
 #include "Entity.hpp"
+#include "Config.hpp"
 #include <string>
 
-class Movable : Entity {
+enum MovementType {
+	MovementByTarget,
+	MovementByDir,
+	MovementStatic
+};
+
+struct Movement {
+	MovementType tag;
+	union {
+		int dir;
+		vec2f target;
+	} data;
+};
+
+class Movable : public Entity {
 
 public:
 	Movable() = delete;
@@ -14,10 +29,19 @@ public:
 	
 
 protected:
-	Movable(vec2f pos, vec2f size, SDL_Color color);
-	Movable(vec2f pos, vec2f size, SDL_Renderer* ren, std::string sprite_path);
+	Movable(Config& config, vec2f pos, vec2f size, SDL_Color color);
+	Movable(Config& config, vec2f pos, vec2f size, SDL_Renderer* ren, std::string sprite_path);
 
-	vec2f target;
+	void go_to_by_target(vec2f pos);	
+	void go_to_by_dir(int dir);
+	
+	bool is_mobile();
+
+	Movement movement = {
+		.tag = MovementStatic,
+		.data = {}
+	};
+
 	float speed;
 };
 
