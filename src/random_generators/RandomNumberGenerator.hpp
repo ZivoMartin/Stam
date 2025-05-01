@@ -2,7 +2,7 @@
 #define __RANDOM_NUMBER_GENERATOR__
 
 #include <random>
-#include "vec2.hpp"
+#include "../util/vec2.hpp"
 
 class RandomNumberGenerator {
 public:

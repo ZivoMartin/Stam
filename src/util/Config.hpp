@@ -2,8 +2,8 @@
 #define __CONFIG__
 
 #include "vec2.hpp"
-#include "RandomPositionGenerator.hpp"
-#include "RandomNumberGenerator.hpp"
+#include "../random_generators/RandomNumberGenerator.hpp"
+#include "../random_generators/RandomPositionGenerator.hpp"
 
 class Config {
 	

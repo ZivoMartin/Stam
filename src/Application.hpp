@@ -7,9 +7,9 @@
 #include <memory> 
 #include <vector>
 #include <SDL2/SDL.h>
-#include "Entity.hpp"
-#include "RandomPositionGenerator.hpp"
-#include "Config.hpp"
+#include "actors/bricks/Entity.hpp"
+#include "random_generators/RandomPositionGenerator.hpp"
+#include "util/Config.hpp"
 
 #define M_WIDTH 900
 #define M_HEIGHT 600

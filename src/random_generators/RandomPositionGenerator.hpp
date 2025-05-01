@@ -2,7 +2,7 @@
 #define __RANDOM_POSITION_GENERATOR__
 
 #include <random>
-#include "vec2.hpp"
+#include "../util/vec2.hpp"
 
 class RandomPositionGenerator {
 public:

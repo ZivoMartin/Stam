@@ -1,8 +1,8 @@
 #ifndef __ENTITY_H__
 #define __ENTITY_H__
 #include <SDL2/SDL.h>
-#include "vec2.hpp"
-#include "Config.hpp"
+#include "../../util/vec2.hpp"
+#include "../../util/Config.hpp"
 #include <string>
 
 class Entity {

@@ -1,10 +1,10 @@
 #ifndef __WANDERER__
 #define __WANDERER__
 
-#include "Config.hpp"
-#include "RandomNumberGenerator.hpp"
-#include "Movable.hpp"
-#include "vec2.hpp"
+#include "../../util/Config.hpp"
+#include "../../random_generators/RandomNumberGenerator.hpp"
+#include "../bricks/Movable.hpp"
+#include "../../util/vec2.hpp"
 #include <SDL2/SDL.h>
 #include <random>
 

@@ -1,9 +1,9 @@
 #ifndef __MOVABLE_H__
 #define __MOVABLE_H__
 #include <SDL2/SDL.h>
-#include "vec2.hpp"
+#include "../../util/vec2.hpp"
 #include "Entity.hpp"
-#include "Config.hpp"
+#include "../../util/Config.hpp"
 #include <string>
 
 enum MovementType {

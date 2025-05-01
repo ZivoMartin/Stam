@@ -1,6 +1,5 @@
 #include "Application.hpp"
 #include <SDL2/SDL.h>
-#include "Wanderer.hpp"
 
 
 Application::Application(AppMode mode) :
@@ -33,9 +32,7 @@ Application::Application(AppMode mode) :
 }
 
 void Application::test_init() {
-	for (int i = 0; i < 10; i++) {
-		this->entities.push_back(std::make_unique<Wanderer>(config, config.random_pos()));
-	}
+
 }
 
 const int TARGET_FPS = 60;
