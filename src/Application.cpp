@@ -1,4 +1,5 @@
 #include "Application.hpp"
+#include "actors/species/Antelope.hpp"
 #include <SDL2/SDL.h>
 
 
@@ -32,7 +33,8 @@ Application::Application(AppMode mode) :
 }
 
 void Application::test_init() {
-
+	for (int i = 0; i < 10; i++) 
+		entities.push_back(std::make_unique<Antelope>(config, config.random_pos()));
 }
 
 const int TARGET_FPS = 60;

@@ -7,8 +7,13 @@
 class Behavior {
 
 public:
-	virtual void behave(Entity* e) = 0;
+	virtual void behave() = 0;
 	virtual ~Behavior() = default;
+
+protected:
+	Behavior(Entity* e) : e(e) {}
+	
+	Entity* e;
 };
 
 

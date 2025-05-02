@@ -1,7 +1,9 @@
 #include "Entity.hpp"
+#include "../behaviors/Behavior.hpp"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <string>
+
 
 Entity::Entity(Config& config, vec2f pos, vec2f size, SDL_Color color)
     : color(color), sprite(nullptr), pos(pos), size(size) , config(config) {}
@@ -24,7 +26,10 @@ Entity::~Entity() {
 	if (this->sprite) SDL_DestroyTexture(this->sprite);
 }
 
-void Entity::process() {}
+void Entity::process() {
+	for (auto& b : behaviors)
+		b->behave();
+}
 
 void Entity::render(SDL_Renderer* ren) {	
 	SDL_FRect rect = SDL_FRect {
@@ -48,3 +53,9 @@ vec2f Entity::get_pos() const {
 vec2f Entity::get_size() const {
 	return this->size;
 }
+
+Config Entity::get_config() const {
+	return this->config;
+}
+
+
