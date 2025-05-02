@@ -1,5 +1,6 @@
 #include "Application.hpp"
 #include "actors/species/Antelope.hpp"
+#include "actors/species/Lion.hpp"
 #include <SDL2/SDL.h>
 
 
@@ -28,13 +29,16 @@ Application::Application(AppMode mode) :
 	case AppCustom:
 		fprintf(stderr, "AppCustom is not ready"); exit(1);
 
-	}
-	
+	}	
 }
 
 void Application::test_init() {
 	for (int i = 0; i < 10; i++) 
 		entities.push_back(std::make_unique<Antelope>(config, config.random_pos()));
+	for (int i = 0; i < 10; i++) 
+		entities.push_back(std::make_unique<Lion>(config, config.random_pos()));
+
+	for (auto& e: entities) e->init_behaviors();
 }
 
 const int TARGET_FPS = 60;
@@ -74,7 +78,8 @@ void Application::process() {
 		default:;
 		}
 	}
-	for (auto& e: entities) e->process();
+	Context ctx(entities);
+	for (auto& e : entities) e->process(ctx);
 }
 
 void Application::render() {

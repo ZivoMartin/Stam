@@ -3,10 +3,12 @@
 #include <SDL2/SDL.h>
 #include "../../util/vec2.hpp"
 #include "../../util/Config.hpp"
+#include "../../util/Context.hpp"
 #include <string>
 #include <vector>
 #include <memory>
 
+class Detector;
 class Behavior;
 
 class Entity {
@@ -15,17 +17,20 @@ public:
 	Entity() = delete;
 	
 	virtual ~Entity();
-	virtual void process();
+	virtual void process(Context& ctx);
 	virtual void render(SDL_Renderer* ren);
+	virtual void init_behaviors();
+
 	
+	virtual void accept(Detector* visitor) = 0;
+
 	vec2f get_pos() const;
 	vec2f get_size() const;
-	Config get_config() const;
-
+	Config& get_config() const;
+	
 protected:
 	Entity(Config& config, vec2f pos, vec2f size, SDL_Color color);
 	Entity(Config& config, vec2f pos, vec2f size, SDL_Renderer* ren, std::string sprite_path);
-
 
 	template<typename T, typename... Args>
 	void add_behavior(Args&&... args) {

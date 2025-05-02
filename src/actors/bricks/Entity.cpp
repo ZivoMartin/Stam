@@ -26,9 +26,9 @@ Entity::~Entity() {
 	if (this->sprite) SDL_DestroyTexture(this->sprite);
 }
 
-void Entity::process() {
+void Entity::process(Context& ctx) {
 	for (auto& b : behaviors)
-		b->behave();
+		b->behave(ctx);
 }
 
 void Entity::render(SDL_Renderer* ren) {	
@@ -54,8 +54,8 @@ vec2f Entity::get_size() const {
 	return this->size;
 }
 
-Config Entity::get_config() const {
+Config& Entity::get_config() const {
 	return this->config;
 }
 
-
+void Entity::init_behaviors() {}

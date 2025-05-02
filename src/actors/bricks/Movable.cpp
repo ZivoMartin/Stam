@@ -1,12 +1,12 @@
 #include "Movable.hpp"
 
-Movable::Movable(Config& config, vec2f pos, vec2f size, SDL_Color color) :
-	Entity(config, pos, size, color) {}
+Movable::Movable(Config& config, vec2f pos, vec2f size, float speed, SDL_Color color) :
+	Entity(config, pos, size, color), speed(speed) {}
 
-Movable::Movable(Config& config, vec2f pos, vec2f size, SDL_Renderer* ren, std::string sprite_path) :
-	Entity(config, pos, size, ren, sprite_path) {}
+Movable::Movable(Config& config, vec2f pos, vec2f size, float speed, SDL_Renderer* ren, std::string sprite_path) :
+	Entity(config, pos, size, ren, sprite_path), speed(speed) {}
 
-void Movable::process() {
+void Movable::process(Context& ctx) {
 	vec2f new_pos;
 	switch (movement.tag) {
 	case MovementByTarget:
@@ -19,7 +19,7 @@ void Movable::process() {
 	if (config.is_valid_pos(new_pos)) 
 		this->pos = new_pos;
 	
-	Entity::process();
+	Entity::process(ctx);
 }
 
 

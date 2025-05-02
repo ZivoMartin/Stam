@@ -1,26 +1,28 @@
-#ifndef __ANTELOPE__
-#define __ANTELOPE__
+#ifndef __LION__
+#define __LION__
 
-#include <optional>
 #include "../bricks/Movable.hpp"
 #include "../bricks/Detector.hpp"
 #include "../behaviors/Wanderer.hpp"
 #include "../../util/vec2.hpp"
 
-class Antelope : public Movable, public Detector {
+class Antelope;
+
+class Lion : public Movable, public Detector {
 
 public:
-	Antelope(Config& config, vec2f pos);
+	Lion(Config& config, vec2f pos);
 	
 	void process(Context& ctx) override;
 	void init_behaviors() override;
 
 	void accept(Detector* visitor) override;
-
-private:
+	
+private:	
+	
 	inline static const vec2f size = vec2f(40, 40);
-	inline static const float speed = 4.0;
-	inline static const float sight_range = 200;
+	inline static const int speed = 4;
+	inline static const float sight_range = 300;
 
 protected:
 	
@@ -28,4 +30,4 @@ protected:
 
 
 
-#endif // __ANTELOPE__
+#endif // __LION__

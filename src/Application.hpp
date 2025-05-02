@@ -10,6 +10,7 @@
 #include "actors/bricks/Entity.hpp"
 #include "random_generators/RandomPositionGenerator.hpp"
 #include "util/Config.hpp"
+#include "util/Context.hpp"
 
 #define M_WIDTH 900
 #define M_HEIGHT 600

@@ -25,15 +25,15 @@ class Movable : public Entity {
 public:
 	Movable() = delete;
 	
-	virtual void process() override;
+	virtual void process(Context& ctx) override;
 
 	void go_to_by_target(vec2f pos);	
 	void go_to_by_dir(int dir);	
 	bool is_mobile();	
 
 protected:
-	Movable(Config& config, vec2f pos, vec2f size, SDL_Color color);
-	Movable(Config& config, vec2f pos, vec2f size, SDL_Renderer* ren, std::string sprite_path);
+	Movable(Config& config, vec2f pos, vec2f size, float speed, SDL_Color color);
+	Movable(Config& config, vec2f pos, vec2f size, float speed, SDL_Renderer* ren, std::string sprite_path);
 
 
 	Movement movement = {

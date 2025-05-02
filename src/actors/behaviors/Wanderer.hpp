@@ -2,6 +2,7 @@
 #define __WANDERER__
 
 #include "../../util/Config.hpp"
+#include "../../util/Context.hpp"
 #include "../../random_generators/RandomNumberGenerator.hpp"
 #include "../bricks/Movable.hpp"
 #include "../bricks/Entity.hpp"
@@ -15,7 +16,7 @@ class Wanderer : public MovableBehavior {
 public:
 	Wanderer(Entity* e);
 	
-	void behave() override;
+	void behave(Context& ctx) override;
 
 private:
 	void change_dir();

@@ -3,11 +3,12 @@
 
 #include "../bricks/Entity.hpp"
 #include "../bricks/Movable.hpp"
+#include "../../util/Context.hpp"
 
 class Behavior {
 
 public:
-	virtual void behave() = 0;
+	virtual void behave(Context& ctx) = 0;
 	virtual ~Behavior() = default;
 
 protected:

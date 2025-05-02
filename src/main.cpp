@@ -12,7 +12,6 @@ int main(int argc, char** argv) {
 			mode = AppCustom; break;
 		}
 	}
-	Application* app = new Application(mode);
-	return app->run();
-	
+	Application app(mode);
+	return app.run();
 }
