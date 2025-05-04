@@ -78,7 +78,7 @@ void Application::process() {
 		default:;
 		}
 	}
-	Context ctx(entities);
+	Context ctx(entities, cam_position);
 	for (auto& e : entities) e->process(ctx);
 }
 

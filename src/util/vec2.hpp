@@ -83,6 +83,7 @@ public:
 		return v1.x * v2.y - v1.y * v2.x;
 	}
 
+	
 	vec2 move_towards(const vec2& dest, T speed) const {
 		T d = dist(dest);
 		if (d > speed) {
@@ -91,6 +92,18 @@ public:
 		} else {
 			return dest;
 		}
+	}
+
+	inline T angle_from_to(vec2 from, vec2 to) {
+		T angle_rad = std::atan2(to.y - from.y, to.x - from.x);
+		T angle_deg = angle_rad * T(180.0) / T(M_PI);
+		return (angle_deg >= T(0) ? angle_deg : angle_deg + T(360.0));
+	}
+
+	inline T escape_angle(const vec2& threat) {
+		T from_to = angle_from_to(*this, threat);
+		T angle = from_to + T(180.0);
+		return (angle >= T(360.0) ? angle - T(360.0) : angle);
 	}
 };
 

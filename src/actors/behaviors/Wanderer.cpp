@@ -10,7 +10,7 @@ void Wanderer::change_dir() {
 	target_changer = dir_duration_gen.random_number();
 }
 
-void Wanderer::behave(Context& ctx) {
+void Wanderer::behave(Context&) {
 	if (this->target_changer -- == 0 || !e->is_mobile()) change_dir();	
 }
 

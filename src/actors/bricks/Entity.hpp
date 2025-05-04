@@ -1,14 +1,15 @@
 #ifndef __ENTITY_H__
 #define __ENTITY_H__
 #include <SDL2/SDL.h>
+#include "../species/Specie.hpp"
 #include "../../util/vec2.hpp"
 #include "../../util/Config.hpp"
 #include "../../util/Context.hpp"
 #include <string>
 #include <vector>
 #include <memory>
+#include <algorithm>
 
-class Detector;
 class Behavior;
 
 class Entity {
@@ -20,10 +21,8 @@ public:
 	virtual void process(Context& ctx);
 	virtual void render(SDL_Renderer* ren);
 	virtual void init_behaviors();
-
+	virtual Specie get_specie() = 0;
 	
-	virtual void accept(Detector* visitor) = 0;
-
 	vec2f get_pos() const;
 	vec2f get_size() const;
 	Config& get_config() const;
@@ -34,7 +33,15 @@ protected:
 
 	template<typename T, typename... Args>
 	void add_behavior(Args&&... args) {
-		behaviors.push_back(std::make_unique<T>(std::forward<Args>(args)...));
+		if (!std::any_of(behaviors.begin(), behaviors.end(), [](const auto& b) {
+			return dynamic_cast<T*>(b.get()) != nullptr;
+		})) behaviors.push_back(std::make_unique<T>(std::forward<Args>(args)...));
+	}
+
+	template<typename T>
+	void remove_behavior() {
+		behaviors.erase(std::remove_if(behaviors.begin(), behaviors.end(), [](const auto& b) { return dynamic_cast<T*>(b.get()) != nullptr; }),
+						behaviors.end());
 	}
 
 	

@@ -12,8 +12,8 @@
 #include "util/Config.hpp"
 #include "util/Context.hpp"
 
-#define M_WIDTH 900
-#define M_HEIGHT 600
+#define M_WIDTH 1400
+#define M_HEIGHT 900
 
 enum AppMode {
 	AppTest,
@@ -40,7 +40,8 @@ private:
 	std::vector<std::unique_ptr<Entity>> entities;
 
 	Config config;
-	
+
+	vec2i cam_position = vec2i(0, 0);
 	bool running = false;
 	SDL_Window* win = 0;
 	SDL_Renderer* ren = 0;

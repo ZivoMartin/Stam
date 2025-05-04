@@ -5,7 +5,7 @@ S_FILES := $(shell find $(S_DIR) -name "*.cpp")
 EXEC=$(B_DIR)/stam
 
 CC=g++
-CFLAGS=-Wall -Wextra `sdl2-config --cflags` `pkg-config --cflags SDL2_image`
+CFLAGS=-Wall -Wextra -std=c++20 `sdl2-config --cflags` `pkg-config --cflags SDL2_image`
 LDFLAGS=`sdl2-config --libs` `pkg-config --libs SDL2_image`
 
 all: build_run

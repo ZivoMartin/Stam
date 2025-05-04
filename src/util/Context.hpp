@@ -3,15 +3,18 @@
 
 #include <vector>
 #include <memory>
+#include "vec2.hpp"
 
 class Entity;
 
 class Context {
 
 public:
-	Context(std::vector<std::unique_ptr<Entity>>& entities) : entities(entities) {}
+	Context(std::vector<std::unique_ptr<Entity>>& entities,  vec2i cam_position) :
+		entities(entities), cam_position(cam_position) {}
 	
 	std::vector<std::unique_ptr<Entity>>& entities;
+	vec2i cam_position;
 	
 };
 
