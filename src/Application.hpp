@@ -11,6 +11,7 @@
 #include "random_generators/RandomPositionGenerator.hpp"
 #include "util/Config.hpp"
 #include "util/Context.hpp"
+#include "environment/Map.hpp"
 
 #define M_WIDTH 1400
 #define M_HEIGHT 900
@@ -37,11 +38,12 @@ private:
 	void process();
 	void render();
 	
+	Map map;
 	std::vector<std::unique_ptr<Entity>> entities;
 
 	Config config;
 
-	vec2i cam_position = vec2i(0, 0);
+	vec2i cam_position = vec2i(430, 470);
 	bool running = false;
 	SDL_Window* win = 0;
 	SDL_Renderer* ren = 0;

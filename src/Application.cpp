@@ -5,8 +5,8 @@
 
 
 Application::Application(AppMode mode) :
-    config(Config(vec2(M_WIDTH, M_HEIGHT))){
-
+    config(Config(vec2(M_WIDTH, M_HEIGHT))), map(Map(config, "map.txt")) {
+	
 	if (SDL_Init(SDL_INIT_VIDEO)) {
 		fprintf(stderr, "Failed to init SDL\n");
 		return;
@@ -85,6 +85,10 @@ void Application::process() {
 void Application::render() {
 	SDL_SetRenderDrawColor(this->ren, BG_COLOR);
 	SDL_RenderClear(this->ren);
+	
+	Context ctx(entities, cam_position);
+	map.render(ren, ctx);
+	
 	for (auto& e: entities) e->render(this->ren);
 	SDL_RenderPresent(this->ren);
 }

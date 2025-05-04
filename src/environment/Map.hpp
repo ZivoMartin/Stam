@@ -3,15 +3,11 @@
 
 #include "../util/Context.hpp"
 #include "../util/Config.hpp"
+#include "Square.hpp"
 #include <SDL2/SDL.h>
 #include <vector>
 #include <string>
-
-enum Square {
-	Ground,
-	Grass,
-	Water
-};
+#include <memory>
 
 #define DEFAULT_WIDTH 300
 #define DEFAULT_HEIGHT 300
@@ -23,7 +19,6 @@ public:
 	Map(Config& config);
 
 	void render(SDL_Renderer* ren, Context& ctx) const;
-	Square get(int i, int j) const;
 	
 	const int tiles_size = 100; // in pixel
 
@@ -32,7 +27,7 @@ private:
 	int width = DEFAULT_WIDTH;
 	int height = DEFAULT_HEIGHT;
 	
-	std::vector<std::vector<Square>> map;
+	std::vector<std::vector<std::unique_ptr<Square>>> map;
 	Config& config;	
 	
 };
