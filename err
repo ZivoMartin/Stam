@@ -1,65 +1,63 @@
-src/actors/behaviors/Wanderer.cpp: Dans la fonction membre « virtual void Wanderer::behave(Context&) »:
-src/actors/behaviors/Wanderer.cpp:13:32: attention: paramètre « _ » inutilisé [-Wunused-parameter]
-   13 | void Wanderer::behave(Context& _) {
-      |                       ~~~~~~~~~^
-Dans le fichier inclus depuis /usr/include/c++/14.2.1/bits/uses_allocator_args.h:39,
-                 depuis /usr/include/c++/14.2.1/bits/memory_resource.h:41,
-                 depuis /usr/include/c++/14.2.1/string:68,
-                 depuis /usr/include/c++/14.2.1/random:43,
-                 depuis src/actors/species/../bricks/../../util/../random_generators/RandomNumberGenerator.hpp:4,
-                 depuis src/actors/species/../bricks/../../util/Config.hpp:5,
-                 depuis src/actors/species/../bricks/Entity.hpp:6,
-                 depuis src/actors/species/../bricks/Movable.hpp:5,
-                 depuis src/actors/species/Lion.hpp:5,
-                 depuis src/actors/species/Antelope.cpp:1:
-/usr/include/c++/14.2.1/tuple: Dans l'instanciation de « constexpr std::pair<_T1, _T2>::pair(std::tuple<_Args1 ...>&, std::tuple<_Args2 ...>&, std::_Index_tuple<_Indexes1 ...>, std::_Index_tuple<_Indexes2 ...>) [avec _Args1 = {const Specie&}; long unsigned int ..._Indexes1 = {0}; _Args2 = {}; long unsigned int ..._Indexes2 = {}; _T1 = const Specie; _T2 = Detected] » :
-/usr/include/c++/14.2.1/tuple:2877:63:   requis par « constexpr std::pair<_T1, _T2>::pair(std::piecewise_construct_t, std::tuple<_Args1 ...>, std::tuple<_Args2 ...>) [avec _Args1 = {const Specie&}; _Args2 = {}; _T1 = const Specie; _T2 = Detected] »
- 2877 |              typename _Build_index_tuple<sizeof...(_Args2)>::__type())
-      |                                                                      ^
-/usr/include/c++/14.2.1/bits/stl_construct.h:97:14:   requis par « constexpr decltype (::new(void*(0)) _Tp) std::construct_at(_Tp*, _Args&& ...) [avec _Tp = pair<const Specie, Detected>; _Args = {const piecewise_construct_t&, tuple<const Specie&>, tuple<>}; decltype (::new(void*(0)) _Tp) = pair<const Specie, Detected>*] »
-   97 |     { return ::new((void*)__location) _Tp(std::forward<_Args>(__args)...); }
-      |              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/usr/include/c++/14.2.1/bits/alloc_traits.h:577:21:   requis par « static constexpr void std::allocator_traits<std::allocator<_CharT> >::construct(allocator_type&, _Up*, _Args&& ...) [avec _Up = std::pair<const Specie, Detected>; _Args = {const std::piecewise_construct_t&, std::tuple<const Specie&>, std::tuple<>}; _Tp = std::_Rb_tree_node<std::pair<const Specie, Detected> >; allocator_type = std::allocator<std::_Rb_tree_node<std::pair<const Specie, Detected> > >] »
-  577 |           std::construct_at(__p, std::forward<_Args>(__args)...);
+src/environment/Map.cpp: In member function ‘void Map::render(SDL_Renderer*, Context&) const’:
+src/environment/Map.cpp:65:32: warning: unused parameter ‘ren’ [-Wunused-parameter]
+   65 | void Map::render(SDL_Renderer* ren, Context& ctx) const {
+      |                  ~~~~~~~~~~~~~~^~~
+In file included from /usr/include/c++/13/memory:78,
+                 from src/environment/../util/Context.hpp:5,
+                 from src/environment/Map.hpp:4,
+                 from src/environment/Map.cpp:5:
+/usr/include/c++/13/bits/unique_ptr.h: In instantiation of ‘std::__detail::__unique_ptr_t<_Tp> std::make_unique(_Args&& ...) [with _Tp = Ground; _Args = {}; __detail::__unique_ptr_t<_Tp> = __detail::__unique_ptr_t<Ground>]’:
+src/environment/Map.cpp:42:33:   required from here
+/usr/include/c++/13/bits/unique_ptr.h:1070:30: error: ‘Ground::Ground()’ is private within this context
+ 1070 |     { return unique_ptr<_Tp>(new _Tp(std::forward<_Args>(__args)...)); }
+      |                              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from src/environment/Map.cpp:2:
+src/environment/Ground.hpp:8:9: note: declared private here
+    8 |         Ground() : Square(SDL_Color {
+      |         ^~~~~~
+/usr/include/c++/13/bits/unique_ptr.h: In instantiation of ‘std::__detail::__unique_ptr_t<_Tp> std::make_unique(_Args&& ...) [with _Tp = Grass; _Args = {}; __detail::__unique_ptr_t<_Tp> = __detail::__unique_ptr_t<Grass>]’:
+src/environment/Map.cpp:44:32:   required from here
+/usr/include/c++/13/bits/unique_ptr.h:1070:30: error: ‘Grass::Grass()’ is private within this context
+ 1070 |     { return unique_ptr<_Tp>(new _Tp(std::forward<_Args>(__args)...)); }
+      |                              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from src/environment/Map.cpp:3:
+src/environment/Grass.hpp:8:9: note: declared private here
+    8 |         Grass() : Square(SDL_Color {
+      |         ^~~~~
+/usr/include/c++/13/bits/unique_ptr.h: In instantiation of ‘std::__detail::__unique_ptr_t<_Tp> std::make_unique(_Args&& ...) [with _Tp = Watter; _Args = {}; __detail::__unique_ptr_t<_Tp> = __detail::__unique_ptr_t<Watter>]’:
+src/environment/Map.cpp:46:33:   required from here
+/usr/include/c++/13/bits/unique_ptr.h:1070:30: error: ‘Watter::Watter()’ is private within this context
+ 1070 |     { return unique_ptr<_Tp>(new _Tp(std::forward<_Args>(__args)...)); }
+      |                              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from src/environment/Map.cpp:1:
+src/environment/Watter.hpp:8:9: note: declared private here
+    8 |         Watter() : Square(SDL_Color {
+      |         ^~~~~~
+In file included from /usr/include/c++/13/ext/alloc_traits.h:34,
+                 from /usr/include/c++/13/bits/basic_string.h:39,
+                 from /usr/include/c++/13/string:54,
+                 from src/environment/Square.hpp:4,
+                 from src/environment/Watter.hpp:4:
+/usr/include/c++/13/bits/alloc_traits.h: In instantiation of ‘static constexpr void std::allocator_traits<std::allocator<_CharT> >::construct(allocator_type&, _Up*, _Args&& ...) [with _Up = std::unique_ptr<Square>; _Args = {const std::unique_ptr<Square, std::default_delete<Square> >&}; _Tp = std::unique_ptr<Square>; allocator_type = std::allocator<std::unique_ptr<Square> >]’:
+/usr/include/c++/13/bits/stl_vector.h:1286:30:   required from ‘constexpr void std::vector<_Tp, _Alloc>::push_back(const value_type&) [with _Tp = std::unique_ptr<Square>; _Alloc = std::allocator<std::unique_ptr<Square> >; value_type = std::unique_ptr<Square>]’
+src/environment/Map.cpp:51:26:   required from here
+/usr/include/c++/13/bits/alloc_traits.h:540:28: error: no matching function for call to ‘construct_at(std::unique_ptr<Square>*&, const std::unique_ptr<Square>&)’
+  540 |           std::construct_at(__p, std::forward<_Args>(__args)...);
       |           ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/usr/include/c++/14.2.1/bits/stl_tree.h:593:32:   requis par « void std::_Rb_tree<_Key, _Val, _KeyOfValue, _Compare, _Alloc>::_M_construct_node(_Link_type, _Args&& ...) [avec _Args = {const std::piecewise_construct_t&, std::tuple<const Specie&>, std::tuple<>}; _Key = Specie; _Val = std::pair<const Specie, Detected>; _KeyOfValue = std::_Select1st<std::pair<const Specie, Detected> >; _Compare = std::less<Specie>; _Alloc = std::allocator<std::pair<const Specie, Detected> >; _Link_type = std::_Rb_tree_node<std::pair<const Specie, Detected> >*] »
-  593 |               _Alloc_traits::construct(_M_get_Node_allocator(),
-      |               ~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~
-  594 |                                        __node->_M_valptr(),
-      |                                        ~~~~~~~~~~~~~~~~~~~~
-  595 |                                        std::forward<_Args>(__args)...);
-      |                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/usr/include/c++/14.2.1/bits/stl_tree.h:610:21:   requis par « std::_Rb_tree_node<_Val>* std::_Rb_tree<_Key, _Val, _KeyOfValue, _Compare, _Alloc>::_M_create_node(_Args&& ...) [avec _Args = {const std::piecewise_construct_t&, std::tuple<const Specie&>, std::tuple<>}; _Key = Specie; _Val = std::pair<const Specie, Detected>; _KeyOfValue = std::_Select1st<std::pair<const Specie, Detected> >; _Compare = std::less<Specie>; _Alloc = std::allocator<std::pair<const Specie, Detected> >; _Link_type = std::_Rb_tree_node<std::pair<const Specie, Detected> >*] »
-  610 |           _M_construct_node(__tmp, std::forward<_Args>(__args)...);
-      |           ~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/usr/include/c++/14.2.1/bits/stl_tree.h:1633:32:   requis par « std::_Rb_tree<_Key, _Val, _KeyOfValue, _Compare, _Alloc>::_Auto_node::_Auto_node(std::_Rb_tree<_Key, _Val, _KeyOfValue, _Compare, _Alloc>&, _Args&& ...) [avec _Args = {const std::piecewise_construct_t&, std::tuple<const Specie&>, std::tuple<>}; _Key = Specie; _Val = std::pair<const Specie, Detected>; _KeyOfValue = std::_Select1st<std::pair<const Specie, Detected> >; _Compare = std::less<Specie>; _Alloc = std::allocator<std::pair<const Specie, Detected> >] »
- 1633 |             _M_node(__t._M_create_node(std::forward<_Args>(__args)...))
-      |                     ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/usr/include/c++/14.2.1/bits/stl_tree.h:2458:13:   requis par « std::_Rb_tree<_Key, _Val, _KeyOfValue, _Compare, _Alloc>::iterator std::_Rb_tree<_Key, _Val, _KeyOfValue, _Compare, _Alloc>::_M_emplace_hint_unique(const_iterator, _Args&& ...) [avec _Args = {const std::piecewise_construct_t&, std::tuple<const Specie&>, std::tuple<>}; _Key = Specie; _Val = std::pair<const Specie, Detected>; _KeyOfValue = std::_Select1st<std::pair<const Specie, Detected> >; _Compare = std::less<Specie>; _Alloc = std::allocator<std::pair<const Specie, Detected> >; iterator = std::_Rb_tree<Specie, std::pair<const Specie, Detected>, std::_Select1st<std::pair<const Specie, Detected> >, std::less<Specie>, std::allocator<std::pair<const Specie, Detected> > >::iterator; const_iterator = std::_Rb_tree<Specie, std::pair<const Specie, Detected>, std::_Select1st<std::pair<const Specie, Detected> >, std::less<Specie>, std::allocator<std::pair<const Specie, Detected> > >::const_iterator] »
- 2458 |         _Auto_node __z(*this, std::forward<_Args>(__args)...);
-      |                    ^~~
-/usr/include/c++/14.2.1/bits/stl_map.h:513:37:   requis par « std::map<_Key, _Tp, _Compare, _Alloc>::mapped_type& std::map<_Key, _Tp, _Compare, _Alloc>::operator[](const key_type&) [avec _Key = Specie; _Tp = Detected; _Compare = std::less<Specie>; _Alloc = std::allocator<std::pair<const Specie, Detected> >; mapped_type = Detected; key_type = Specie] »
-  513 |           __i = _M_t._M_emplace_hint_unique(__i, std::piecewise_construct,
-      |                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  514 |                                             std::tuple<const key_type&>(__k),
-      |                                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  515 |                                             std::tuple<>());
-      |                                             ~~~~~~~~~~~~~~~
-src/actors/species/../../util/Detector.hpp:26:51:   requis depuis ici
-   26 |                         if (!detected_map.contains(s) || detected_map[s].dist > d)
-      |                                                                        ^
-/usr/include/c++/14.2.1/tuple:2888:9: erreur: pas de fonction concordante pour l'appel à « Detected::Detected() »
- 2888 |         second(std::forward<_Args2>(std::get<_Indexes2>(__tuple2))...)
-      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Dans le fichier inclus depuis src/actors/species/Antelope.cpp:4:
-src/actors/species/../../util/Detector.hpp:13:9: note: candidat : « Detected::Detected(Entity*, float) »
-   13 |         Detected(Entity* elt, float dist): elt(elt), dist(dist) {}
-      |         ^~~~~~~~
-src/actors/species/../../util/Detector.hpp:13:9: note:   le candidat attend 2 arguments, 0 fourni(s)
-src/actors/species/../../util/Detector.hpp:12:8: note: candidat : « constexpr Detected::Detected(const Detected&) »
-   12 | struct Detected {
-      |        ^~~~~~~~
-src/actors/species/../../util/Detector.hpp:12:8: note:   le candidat attend 1 argument, 0 fourni(s)
-src/actors/species/../../util/Detector.hpp:12:8: note: candidat : « constexpr Detected::Detected(Detected&&) »
-src/actors/species/../../util/Detector.hpp:12:8: note:   le candidat attend 1 argument, 0 fourni(s)
-make: *** [Makefile:16: build/stam] Error 1
+In file included from /usr/include/c++/13/bits/char_traits.h:57,
+                 from /usr/include/c++/13/string:42:
+/usr/include/c++/13/bits/stl_construct.h:94:5: note: candidate: ‘template<class _Tp, class ... _Args> constexpr decltype (::new(void*(0)) _Tp) std::construct_at(_Tp*, _Args&& ...)’
+   94 |     construct_at(_Tp* __location, _Args&&... __args)
+      |     ^~~~~~~~~~~~
+/usr/include/c++/13/bits/stl_construct.h:94:5: note:   template argument deduction/substitution failed:
+/usr/include/c++/13/bits/stl_construct.h: In substitution of ‘template<class _Tp, class ... _Args> constexpr decltype (::new(void*(0)) _Tp) std::construct_at(_Tp*, _Args&& ...) [with _Tp = std::unique_ptr<Square>; _Args = {const std::unique_ptr<Square, std::default_delete<Square> >&}]’:
+/usr/include/c++/13/bits/alloc_traits.h:540:21:   required from ‘static constexpr void std::allocator_traits<std::allocator<_CharT> >::construct(allocator_type&, _Up*, _Args&& ...) [with _Up = std::unique_ptr<Square>; _Args = {const std::unique_ptr<Square, std::default_delete<Square> >&}; _Tp = std::unique_ptr<Square>; allocator_type = std::allocator<std::unique_ptr<Square> >]’
+/usr/include/c++/13/bits/stl_vector.h:1286:30:   required from ‘constexpr void std::vector<_Tp, _Alloc>::push_back(const value_type&) [with _Tp = std::unique_ptr<Square>; _Alloc = std::allocator<std::unique_ptr<Square> >; value_type = std::unique_ptr<Square>]’
+src/environment/Map.cpp:51:26:   required from here
+/usr/include/c++/13/bits/stl_construct.h:96:17: error: use of deleted function ‘std::unique_ptr<_Tp, _Dp>::unique_ptr(const std::unique_ptr<_Tp, _Dp>&) [with _Tp = Square; _Dp = std::default_delete<Square>]’
+   96 |     -> decltype(::new((void*)0) _Tp(std::declval<_Args>()...))
+      |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/c++/13/bits/unique_ptr.h:522:7: note: declared here
+  522 |       unique_ptr(const unique_ptr&) = delete;
+      |       ^~~~~~~~~~
+make: *** [Makefile:16 : build/stam] Erreur 1
