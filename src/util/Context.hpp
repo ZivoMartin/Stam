@@ -10,11 +10,11 @@ class Entity;
 class Context {
 
 public:
-	Context(std::vector<std::unique_ptr<Entity>>& entities,  vec2i cam_position) :
+	Context(std::vector<std::unique_ptr<Entity>>& entities,  const vec2i& cam_position) :
 		entities(entities), cam_position(cam_position) {}
 	
 	std::vector<std::unique_ptr<Entity>>& entities;
-	vec2i cam_position;
+	const vec2i& cam_position;
 	
 };
 

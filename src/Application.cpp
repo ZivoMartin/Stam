@@ -5,13 +5,13 @@
 
 
 Application::Application(AppMode mode) :
-    config(Config(vec2(M_WIDTH, M_HEIGHT))), map(Map(config, "map.txt")) {
-	
+    config(Config(TILE_SIZE, vec2i(M_WIDTH, M_HEIGHT))), map(Map(config)), event_manager(EventManager()) {
+
 	if (SDL_Init(SDL_INIT_VIDEO)) {
 		fprintf(stderr, "Failed to init SDL\n");
 		return;
 	}
-	this->win = SDL_CreateWindow(WINDOW_TITLE, 100, 100, config.map_dim.x, config.map_dim.y, 0);
+	this->win = SDL_CreateWindow(WINDOW_TITLE, 100, 100, config.get_map_dim().x, config.get_map_dim().y, 0);
 	if (!this->win) {
 		fprintf(stderr, "Failed to init Window\n");
 		return;
@@ -21,6 +21,10 @@ Application::Application(AppMode mode) :
 		fprintf(stderr, "Failed to init ren\n");
 		return;
 	}
+    
+    sprite_set.init(config, ren);
+    map.init(sprite_set, "map.txt");
+    
 	switch (mode) {
 	case AppTest:
 		test_init(); break;
@@ -45,8 +49,7 @@ const int TARGET_FPS = 60;
 const int FRAME_DELAY_MS = 1000 / TARGET_FPS;
 
 int Application::run() {
-	this->running = true;
-	while (this->is_running()) {
+	while (event_manager.is_running()) {
 		Uint32 frame_start = SDL_GetTicks();
 		
 		this->process();
@@ -60,33 +63,21 @@ int Application::run() {
 
 }
 
-bool Application::is_running() const {
-	return this->running;
+Context Application::build_context() {
+    return Context(entities, event_manager.get_cam_position());    
 }
-
-void Application::stop() {
-	this->running = false;
-}
-
 
 void Application::process() {
-	SDL_Event e;
-	while (SDL_PollEvent(&e)) {
-		switch (e.type) {
-		case SDL_QUIT:
-			this->stop(); break;
-		default:;
-		}
-	}
-	Context ctx(entities, cam_position);
-	for (auto& e : entities) e->process(ctx);
+    event_manager.process();
+    Context ctx = build_context();
+	for (auto& entitie : entities) entitie->process(ctx);
 }
 
 void Application::render() {
 	SDL_SetRenderDrawColor(this->ren, BG_COLOR);
 	SDL_RenderClear(this->ren);
 	
-	Context ctx(entities, cam_position);
+	Context ctx = build_context();
 	map.render(ren, ctx);
 	
 	for (auto& e: entities) e->render(this->ren);

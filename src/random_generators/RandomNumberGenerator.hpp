@@ -8,7 +8,8 @@ class RandomNumberGenerator {
 public:
     RandomNumberGenerator(int min, int max, unsigned seed = std::random_device{}())
         :  gen(seed), dist(min, max) {}
-
+    RandomNumberGenerator() = default;
+    
     int random_number() {
         return dist(gen);
     }

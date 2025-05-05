@@ -6,7 +6,7 @@
 class Ground : public Square {
 
 public:
-	Ground(SDL_Renderer* ren) : Square(ren, "../../res/Ground.png") {}
+	explicit Ground(SDL_Texture* tex) : Square(tex) {}
 	
 };
 

@@ -9,11 +9,11 @@
 class Square {
 
 public:
-	Square(SDL_Renderer* ren, std::string& path);
-	Square(SDL_Color c);
+    Square(SDL_Texture* tex);
+	explicit Square(SDL_Color c);
 	~Square();
 	
-	void render(SDL_Renderer* ren, SDL_Rect r);
+	void render(SDL_Renderer* ren, SDL_Rect* src, SDL_Rect* dest) const;
 
 private:
 	SDL_Texture* tex = nullptr;

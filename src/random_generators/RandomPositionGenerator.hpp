@@ -8,7 +8,8 @@ class RandomPositionGenerator {
 public:
     RandomPositionGenerator(vec2i d, unsigned seed = std::random_device{}())
         :  gen(seed), dist_x(0, d.x - 1), dist_y(0, d.y - 1) {}
-
+    RandomPositionGenerator() = default;
+    
     vec2f random_position() {
         return vec2f(dist_x(gen), dist_y(gen));
     }

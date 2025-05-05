@@ -8,10 +8,11 @@
 class Config {
 	
 public:
-	Config(vec2i map_dim)
-		: map_dim(map_dim), posgen(map_dim), dirgen(0, 360) {}
+	Config(int tile_size, vec2i map_dim)
+		: tile_size(tile_size), map_dim(map_dim), posgen(map_dim), dirgen(0, 360) {}
+    Config() = default;
 
-	const vec2i map_dim;
+    const int tile_size;
 
 	int random_dir() {
 		return dirgen.random_number();
@@ -24,8 +25,17 @@ public:
 	bool is_valid_pos(vec2f pos) {
 		return pos.x < map_dim.x && pos.y < map_dim.y && pos.x >= 0 && pos.y >= 0;
 	}
+    
+    bool is_valid_pos(vec2f pos, float limit) {
+		return pos.x < map_dim.x && pos.y < map_dim.y && pos.x >= -limit && pos.y >= -limit;
+	}
+
+    const vec2i& get_map_dim() const {
+        return map_dim;
+    }
 
 private:
+    vec2i map_dim;
 	RandomPositionGenerator posgen;
 	RandomNumberGenerator dirgen;	
 };

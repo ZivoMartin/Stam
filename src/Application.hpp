@@ -11,8 +11,11 @@
 #include "random_generators/RandomPositionGenerator.hpp"
 #include "util/Config.hpp"
 #include "util/Context.hpp"
+#include "util/SpriteSet.hpp"
 #include "environment/Map.hpp"
+#include "util/EventManager.hpp"
 
+#define TILE_SIZE 100
 #define M_WIDTH 1400
 #define M_HEIGHT 900
 
@@ -25,26 +28,26 @@ enum AppMode {
 class Application {
 
 public:
-	Application(AppMode mode);
+	explicit Application(AppMode mode);
 	~Application();
 
 	void test_init();
 	
 	int run();
-	bool is_running() const;
-	void stop();
 	
 private:
 	void process();
 	void render();
-	
-	Map map;
+    Context build_context();
+    
 	std::vector<std::unique_ptr<Entity>> entities;
 
+    SpriteSet sprite_set;
 	Config config;
+	Map map;
+    EventManager event_manager;
+	
 
-	vec2i cam_position = vec2i(430, 470);
-	bool running = false;
 	SDL_Window* win = 0;
 	SDL_Renderer* ren = 0;
 
