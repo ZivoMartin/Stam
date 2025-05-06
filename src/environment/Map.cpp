@@ -73,19 +73,23 @@ void Map::render(SDL_Renderer* ren, Context& ctx) const {
 
     int map_i_start = cam_pos.x / tile_size;
     int map_j_start = cam_pos.y / tile_size;
-
+	if (cam_pos.x < 0) map_i_start --;
+	if (cam_pos.y < 0) map_j_start --;
+	
     int offset_x = -cam_pos.x % tile_size;
+	if (offset_x > 0) offset_x *= -1;
     int offset_y = -cam_pos.y % tile_size;
-
+	if (offset_y > 0) offset_y *= -1;
+	
     int screen_x = 0;
 
-     int clip_left   = std::max(0, -offset_x);
-     int clip_top    = std::max(0, -offset_y);
+     int clip_left = std::max(0, -offset_x);
+     int clip_top  = std::max(0, -offset_y);
 
     for (int map_i = map_i_start, dx = offset_x; config.is_valid_pos(vec2f(dx, 0), tile_size); ++map_i, dx += tile_size, screen_x += tile_size) {
         int screen_y = 0;
         for (int map_j = map_j_start, dy = offset_y; config.is_valid_pos(vec2f(0, dy), tile_size); ++map_j, dy += tile_size, screen_y += tile_size) {
-
+			printf("%d %d\n", map_i, map_j);
             int clip_right  = std::max(0, (dx + tile_size) - map_dim.x);
             int clip_bottom = std::max(0, (dy + tile_size) - map_dim.y);
 
@@ -102,14 +106,14 @@ void Map::render(SDL_Renderer* ren, Context& ctx) const {
                 .h = src.h
             };
 
-            if (!map_i) {
+            if (map_i == map_i_start) {
                 src.x = clip_left;
                 src.w -= clip_left;
                 dest.x += clip_left;
                 dest.w -= clip_left;
             }
             
-            if (!map_j) {
+            if (map_j == map_j_start) {
                 src.y = clip_top;
                 src.h -= clip_top;
                 dest.y += clip_top;
