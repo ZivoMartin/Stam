@@ -16,9 +16,8 @@ void Movable::process(Context& ctx) {
 	case MovementStatic:
 		new_pos = pos; break;
 	}
-	if (config.is_valid_pos(new_pos)) 
-		this->pos = new_pos;
-	
+	if (config.is_valid_map_pos(new_pos)) 
+		this->pos = new_pos;	
 	Entity::process(ctx);
 }
 

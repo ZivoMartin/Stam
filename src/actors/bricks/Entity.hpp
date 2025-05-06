@@ -19,7 +19,7 @@ public:
 	
 	virtual ~Entity();
 	virtual void process(Context& ctx);
-	virtual void render(SDL_Renderer* ren);
+	virtual void render(Context& ctx, SDL_Renderer* ren);
 	virtual void init_behaviors();
 	virtual Specie get_specie() = 0;
 	

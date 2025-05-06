@@ -5,13 +5,13 @@
 
 
 Application::Application(AppMode mode) :
-    config(Config(TILE_SIZE, vec2i(M_WIDTH, M_HEIGHT))), map(Map(config)), event_manager(EventManager()) {
+    config(Config(TILE_SIZE, vec2i(M_WIDTH, M_HEIGHT))), map(Map(config)), event_manager(EventManager(config)) {
 
 	if (SDL_Init(SDL_INIT_VIDEO)) {
 		fprintf(stderr, "Failed to init SDL\n");
 		return;
 	}
-	this->win = SDL_CreateWindow(WINDOW_TITLE, 100, 100, config.get_map_dim().x, config.get_map_dim().y, 0);
+	this->win = SDL_CreateWindow(WINDOW_TITLE, 100, 100, config.get_screen_dim().x, config.get_screen_dim().y, 0);
 	if (!this->win) {
 		fprintf(stderr, "Failed to init Window\n");
 		return;
@@ -24,7 +24,8 @@ Application::Application(AppMode mode) :
     
     sprite_set.init(config, ren);
     map.init(sprite_set, "map.txt");
-    
+    config.set_map_dim(map.get_map_dim());
+
 	switch (mode) {
 	case AppTest:
 		test_init(); break;
@@ -68,7 +69,7 @@ Context Application::build_context() {
 }
 
 void Application::process() {
-    event_manager.process();
+    event_manager.process(win);
     Context ctx = build_context();
 	for (auto& entitie : entities) entitie->process(ctx);
 }
@@ -79,8 +80,7 @@ void Application::render() {
 	
 	Context ctx = build_context();
 	map.render(ren, ctx);
-	
-	for (auto& e: entities) e->render(this->ren);
+	for (auto& e: entities) e->render(ctx, this->ren);
 	SDL_RenderPresent(this->ren);
 }
 

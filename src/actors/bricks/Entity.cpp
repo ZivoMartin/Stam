@@ -31,10 +31,14 @@ void Entity::process(Context& ctx) {
 		b->behave(ctx);
 }
 
-void Entity::render(SDL_Renderer* ren) {	
+void Entity::render(Context& ctx, SDL_Renderer* ren) {
+    const vec2i& cam_pos = ctx.cam_position;
+    
+    if (!config.is_on_screen(cam_pos, pos))  return;
+
 	SDL_FRect rect = SDL_FRect {
-		.x = this->pos.x,
-		.y = this->pos.y,
+		.x = this->pos.x - cam_pos.x,
+		.y = this->pos.y - cam_pos.y,
 		.w = this->size.x,
 		.h = this->size.y,
 	};

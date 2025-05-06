@@ -21,7 +21,8 @@ public:
 	explicit Map(Config& config);
     void init(SpriteSet& sprite_set, const std::string& path);
     void init(SpriteSet& sprite_set);
-    
+
+    vec2i get_map_dim();
 	void render(SDL_Renderer* ren, Context& ctx) const;
 
 private:

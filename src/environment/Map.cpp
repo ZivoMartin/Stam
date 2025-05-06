@@ -68,7 +68,7 @@ void  Map::init(SpriteSet& sprite_set, const std::string& path) {
 
 void Map::render(SDL_Renderer* ren, Context& ctx) const {
     int tile_size = config.tile_size;
-    vec2i map_dim = config.get_map_dim();
+    vec2i map_dim = config.get_screen_dim();
     vec2i cam_pos = ctx.cam_position;
 
     int map_i_start = cam_pos.x / tile_size;
@@ -86,9 +86,9 @@ void Map::render(SDL_Renderer* ren, Context& ctx) const {
      int clip_left = std::max(0, -offset_x);
      int clip_top  = std::max(0, -offset_y);
 
-    for (int map_i = map_i_start, dx = offset_x; config.is_valid_pos(vec2f(dx, 0), tile_size); ++map_i, dx += tile_size, screen_x += tile_size) {
+    for (int map_i = map_i_start, dx = offset_x; config.is_valid_screen_pos(vec2f(dx, 0), tile_size); ++map_i, dx += tile_size, screen_x += tile_size) {
         int screen_y = 0;
-        for (int map_j = map_j_start, dy = offset_y; config.is_valid_pos(vec2f(0, dy), tile_size); ++map_j, dy += tile_size, screen_y += tile_size) {
+        for (int map_j = map_j_start, dy = offset_y; config.is_valid_screen_pos(vec2f(0, dy), tile_size); ++map_j, dy += tile_size, screen_y += tile_size) {
             int clip_right  = std::max(0, (dx + tile_size) - map_dim.x);
             int clip_bottom = std::max(0, (dy + tile_size) - map_dim.y);
 
@@ -130,6 +130,8 @@ void Map::render(SDL_Renderer* ren, Context& ctx) const {
 }
 
 
-
+vec2i Map::get_map_dim() {
+    return vec2i(config.tile_size * map.size(), config.tile_size * (map.size() == 0 ? 0 : map[0].size()));
+}
 
 
